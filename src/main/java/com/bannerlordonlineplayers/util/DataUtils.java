@@ -19,24 +19,50 @@ public class DataUtils {
     public static final String[] relationsState = new String[] {"Neutral", "War", "Friend", "Alliance"};
     private static final String PROFILE_LINK = "https://bannerlord-online.com/forum/index.php?members/";
 
-    public Player getNewPlayer(String idOrLink) {
+//    public Player getPlayerByLinkOrId(String linkOrId) {
+//        Player player = null;
+//
+//        if (linkOrId.matches("^\\d+$")) { //id case
+//            if (Long.parseLong(linkOrId) < 0) throw new IllegalArgumentException("Id must be positive number.");
+//
+//            Document doc = getDocument(PROFILE_LINK + linkOrId);
+//            String link = getLinkFromDoc(doc);
+//
+//            if (link != null) {
+//                player = buildPlayer(getIDFromLink(link), getNameFromDoc(doc), link);
+//                System.out.println(player.toString());
+//            } else {
+//                System.out.println("link is null");
+//            }
+//        } else { //link case
+//            player = buildPlayer(getIDFromLink(linkOrId), getNameFromLink(linkOrId), linkOrId);
+//            System.out.println(player.toString());
+//        }
+//        return player;
+//    }
+
+    public Player getPlayerByLink(String link) {
+        Player player = null;
+        Document doc = getDocument(link);
+        player = buildPlayer(getIDFromLink(link), getNameFromDoc(doc), link);
+        return player;
+    }
+
+    public Player getPlayerById(String id) {
         Player player = null;
 
-        if (idOrLink.matches("^\\d+$")) { //id case
-            if (Long.parseLong(idOrLink) < 0) throw new IllegalArgumentException("Id must be positive number.");
+        if (id.matches("^\\d+$")) {
+            if (Long.parseLong(id) < 0) throw new IllegalArgumentException("Id must be positive number.");
 
-            Document doc = getDocument(PROFILE_LINK + idOrLink);
+            Document doc = getDocument(PROFILE_LINK + id);
             String link = getLinkFromDoc(doc);
 
             if (link != null) {
                 player = buildPlayer(getIDFromLink(link), getNameFromDoc(doc), link);
-                System.out.println(player.toString());
+                //System.out.println(player.toString());
             } else {
                 System.out.println("link is null");
             }
-        } else { //link case
-            player = buildPlayer(getIDFromLink(idOrLink), getNameFromLink(idOrLink), idOrLink);
-            System.out.println(player.toString());
         }
         return player;
     }

@@ -1,6 +1,10 @@
 package com.bannerlordonlineplayers.model;
 
 import com.bannerlordonlineplayers.util.DataUtils;
+import com.bannerlordonlineplayers.util.ViewUtils;
+import com.fasterxml.jackson.annotation.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.*;
@@ -11,17 +15,22 @@ import java.util.*;
 
 @Entity
 @Table(name = "players")
+@NoArgsConstructor
+@AllArgsConstructor
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 public class Player {
 
     @Id
-    private long id;
+    private Long id;
 
-    //first name registered in DB
     @Column(name = "name", nullable = false)
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "clan")
+    @JsonIgnoreProperties(value="members")
     private Clan clan;
 
     @Column(name = "army", nullable = false, columnDefinition = "int default 0")
@@ -42,10 +51,7 @@ public class Player {
             joinColumns = @JoinColumn(name = "id"))
     private Set<String> nameHistory = new HashSet<>();
 
-    public Player() {
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -114,13 +120,12 @@ public class Player {
         if (this == o) return true;
         if (!(o instanceof Player)) return false;
         Player player = (Player) o;
-        return id == player.id;
+        return id == player.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
-        //return 10;
+        return id == null ? 0 : id.intValue();
     }
 
     @Override
@@ -130,7 +135,6 @@ public class Player {
                 ", Никнейм '" + name + "'" +
                 ", Клан '" + (clan != null ? clan.getName() : "отсуствует") + "'" +
                 ", Размер отряда '" + army + "'" +
-                ", Отношения '" + (clan != null ? DataUtils.relationsState[clan.getRelation()] : "-") + "'" +
                 ", Лидер клана '" + (is_clan_leader ? "Да" : "Нет") + "'" +
                 ", Твинк '" + (is_twink ? "Да" : "Нет") + "'" +
                 ", Известен как '" + Arrays.toString(nameHistory.toArray()) + "'" +
