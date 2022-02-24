@@ -59,7 +59,7 @@ class PlayerControllerTest extends UnitTestBase {
     @Test
     void save() {
         Player neww = getNew();
-        Player saved = controller.save(neww.getProfileLink());
+        Player saved = controller.save(neww.getProfile_link());
 
         assertEquals(neww.getName(), saved.getName());
         assertEquals(neww.getId(), saved.getId());
@@ -80,14 +80,14 @@ class PlayerControllerTest extends UnitTestBase {
         assertNotEquals(before.getName(), getUpdated().getName());
         assertNotEquals(before.getClan(), getUpdated().getClan());
         assertNotEquals(before.getArmy(), getUpdated().getArmy());
-        assertTrue(before.isClanLeader());
-        assertFalse(before.isTwink());
+        assertTrue(before.is_clan_leader());
+        assertFalse(before.is_twink());
 
         Player after = controller.update(1L, getUpdated());
         assertEquals(getUpdated().getName(), after.getName());
         assertEquals(getUpdated().getClan(), after.getClan());
         assertEquals(getUpdated().getArmy(), after.getArmy());
-        assertFalse(after.isClanLeader());
-        assertTrue(after.isTwink());
+        assertFalse(after.is_clan_leader());
+        assertTrue(after.is_twink());
     }
 }

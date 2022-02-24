@@ -2,8 +2,7 @@ package com.bannerlordonlineplayers.model;
 
 import com.bannerlordonlineplayers.util.ViewUtils;
 import com.fasterxml.jackson.annotation.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.*;
@@ -14,6 +13,8 @@ import java.util.*;
 
 @Entity
 @Table(name = "clans")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 //@JsonIdentityInfo(
@@ -28,15 +29,32 @@ public class Clan {
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "clan", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "clan", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JsonIgnoreProperties(value={"clan", "name_history"})
+    @Setter(AccessLevel.PRIVATE)
     private List<Player> members = new ArrayList<>();
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(
-            name = "war_list",
-            joinColumns = @JoinColumn(name = "id"))
-    private Set<Long> warList = new HashSet<>();
+//    @ElementCollection(fetch = FetchType.EAGER)
+//    @CollectionTable(
+//            name = "war_list",
+//            joinColumns = @JoinColumn(name = "id"))
+//    private Set<Long> warList = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="war_id")
+    private Clan inWar;
+
+    @OneToMany(mappedBy = "inWar")
+    @Setter(AccessLevel.PRIVATE)
+    private Set<Clan> warList = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="alliance_id")
+    private Clan inAlliance;
+
+    @OneToMany(mappedBy = "inAlliance")
+    @Setter(AccessLevel.PRIVATE)
+    private Set<Clan> allianceList = new HashSet<>();
 
     public Clan(String name) {
         this.name = name;
@@ -59,46 +77,29 @@ public class Clan {
         player.setClan(this);
     }
 
+    public void addMembers(Player... players) {
+        members.addAll(List.of(players));
+        List.of(players).forEach(player -> player.setClan(this));
+    }
+
     public void addWar(Clan clan) {
-        this.getWarList().add(clan.getId());
-        clan.getWarList().add(this.getId());
+        this.getWarList().add(clan);
+        clan.getWarList().add(this);
     }
 
     public void removeWar(Clan clan) {
-        this.getWarList().remove(clan.getId());
-        clan.getWarList().remove(this.getId());
+        this.getWarList().remove(clan);
+        clan.getWarList().remove(this);
     }
 
-    public void addRelation(List<Long> list, Long clanId) {
-
+    public void addAlliance(Clan clan) {
+        this.getAllianceList().add(clan);
+        clan.getAllianceList().add(this);
     }
 
-    //
-//    @Column(name = "relation", nullable = false, columnDefinition = "int default 0")
-//    private Integer relation = 0;           //["Neutral", "War", "Friend", "Alliance"]
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String clanName) {
-        this.name = clanName;
-    }
-
-    public List<Player> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<Player> members) {
-        this.members = members;
+    public void removeFromAlliance(Clan clan) {
+        this.getAllianceList().remove(clan);
+        clan.getAllianceList().remove(this);
     }
 
     @Override
@@ -106,7 +107,7 @@ public class Clan {
         if (this == o) return true;
         if (!(o instanceof Clan)) return false;
         Clan clan = (Clan) o;
-        return id == clan.getId() || name.equals(clan.name);
+        return Objects.equals(this.id, clan.getId()) || name.equals(clan.name);
     }
 
     @Override
@@ -114,11 +115,4 @@ public class Clan {
         return id == null ? 0 : id.intValue();
     }
 
-    public Set<Long> getWarList() {
-        return warList;
-    }
-
-    public void setWarList(Set<Long> warList) {
-        this.warList = warList;
-    }
 }

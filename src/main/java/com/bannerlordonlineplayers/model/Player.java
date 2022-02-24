@@ -3,8 +3,7 @@ package com.bannerlordonlineplayers.model;
 import com.bannerlordonlineplayers.util.DataUtils;
 import com.bannerlordonlineplayers.util.ViewUtils;
 import com.fasterxml.jackson.annotation.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.*;
@@ -17,6 +16,8 @@ import java.util.*;
 @Table(name = "players")
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 //@JsonIdentityInfo(
 //        generator = ObjectIdGenerators.PropertyGenerator.class,
 //        property = "id")
@@ -28,7 +29,7 @@ public class Player {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "clan")
     @JsonIgnoreProperties(value="members")
     private Clan clan;
@@ -45,74 +46,15 @@ public class Player {
     @Column(name = "profile_link", nullable = false)
     private String profile_link;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(
             name = "name_history",
             joinColumns = @JoinColumn(name = "id"))
+    @Setter(AccessLevel.PRIVATE)
     private Set<String> nameHistory = new HashSet<>();
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String newName) {
-        this.name = newName;
-    }
-
-    public Clan getClan() {
-        return clan;
-    }
-
-    public void setClan(Clan clan) {
-        this.clan = clan;
-    }
-
-    public boolean isClanLeader() {
-        return is_clan_leader;
-    }
-
-    public void setClanLeader(boolean clanLeader) {
-        is_clan_leader = clanLeader;
-    }
-
-    public boolean isTwink() {
-        return is_twink;
-    }
-
-    public void setTwink(boolean twink) {
-        is_twink = twink;
-    }
-
-    public String getProfileLink() {
-        return profile_link;
-    }
-
-    public void setProfileLink(String profileLink) {
-        this.profile_link = profileLink;
-    }
-
-    public Integer getArmy() {
-        return army;
-    }
-
-    public void setArmy(int army) {
-        this.army = army;
-    }
-
-    public Set<String> getNameHistory() {
-        return nameHistory;
-    }
-
-    public void setNameHistory(Set<String> nameHistory) {
-        this.nameHistory = nameHistory;
+    public void addNameInHistory(String name) {
+        nameHistory.add(name);
     }
 
     @Override
@@ -120,7 +62,7 @@ public class Player {
         if (this == o) return true;
         if (!(o instanceof Player)) return false;
         Player player = (Player) o;
-        return id == player.getId();
+        return Objects.equals(this.id, player.getId());
     }
 
     @Override

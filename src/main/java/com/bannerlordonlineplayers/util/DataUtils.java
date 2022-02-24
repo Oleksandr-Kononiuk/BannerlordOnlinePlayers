@@ -72,7 +72,7 @@ public class DataUtils {
 
         player.setId(id);
         player.setName(name);
-        player.setProfileLink(link);
+        player.setProfile_link(link);
 
         return player;
     }
