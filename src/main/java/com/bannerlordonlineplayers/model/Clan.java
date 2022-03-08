@@ -1,6 +1,5 @@
 package com.bannerlordonlineplayers.model;
 
-import com.bannerlordonlineplayers.util.ViewUtils;
 import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
@@ -17,9 +16,6 @@ import java.util.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@JsonIdentityInfo(
-//        generator = ObjectIdGenerators.PropertyGenerator.class,
-//        property = "id")
 public class Clan {
 
     @Id
@@ -34,27 +30,20 @@ public class Clan {
     @Setter(AccessLevel.PRIVATE)
     private List<Player> members = new ArrayList<>();
 
-//    @ElementCollection(fetch = FetchType.EAGER)
-//    @CollectionTable(
-//            name = "war_list",
-//            joinColumns = @JoinColumn(name = "id"))
-//    private Set<Long> warList = new HashSet<>();
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="war_id")
     private Clan inWar;
 
     @OneToMany(mappedBy = "inWar")
     @Setter(AccessLevel.PRIVATE)
     private Set<Clan> warList = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="alliance_id")
-    private Clan inAlliance;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name="alliance_id")
+//    private Clan inAlliance;
 
-    @OneToMany(mappedBy = "inAlliance")
-    @Setter(AccessLevel.PRIVATE)
-    private Set<Clan> allianceList = new HashSet<>();
+//    @OneToMany(mappedBy = "inAlliance")
+//    @Setter(AccessLevel.PRIVATE)
+//    private Set<Clan> allianceList = new HashSet<>();
 
     public Clan(String name) {
         this.name = name;
@@ -92,15 +81,15 @@ public class Clan {
         clan.getWarList().remove(this);
     }
 
-    public void addAlliance(Clan clan) {
-        this.getAllianceList().add(clan);
-        clan.getAllianceList().add(this);
-    }
-
-    public void removeFromAlliance(Clan clan) {
-        this.getAllianceList().remove(clan);
-        clan.getAllianceList().remove(this);
-    }
+//    public void addAlliance(Clan clan) {
+//        this.getAllianceList().add(clan);
+//        clan.getAllianceList().add(this);
+//    }
+//
+//    public void removeFromAlliance(Clan clan) {
+//        this.getAllianceList().remove(clan);
+//        clan.getAllianceList().remove(this);
+//    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,18 +1,17 @@
 DELETE FROM name_history;
 DELETE FROM players;
-DELETE FROM war_list;
 DELETE FROM clans;
 DELETE FROM suggestions;
 DELETE FROM users;
 
 INSERT INTO `clans`
 VALUES
-    (1,'DEV'),
-    (2,'HUN'),
-    (3,'FMC'),
-    (4,'GAL'),
-    (5,'LS'),
-    (6,'RS');
+    (1,'DEV',   NULL),
+    (2,'HUN',   NULL),
+    (3,'FMC',   NULL),
+    (4,'GAL',   NULL),
+    (5,'LS',    NULL),
+    (6,'RS',    NULL);
 
 INSERT INTO `players`
 VALUES
@@ -32,8 +31,3 @@ VALUES
        (2,'Tester'),
        (2,'Best Slender'),
        (3,'Moonchik');
-
-INSERT INTO `war_list`
-VALUES
-    (5,4),
-    (5,3);

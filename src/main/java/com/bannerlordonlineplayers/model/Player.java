@@ -1,7 +1,5 @@
 package com.bannerlordonlineplayers.model;
 
-import com.bannerlordonlineplayers.util.DataUtils;
-import com.bannerlordonlineplayers.util.ViewUtils;
 import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
