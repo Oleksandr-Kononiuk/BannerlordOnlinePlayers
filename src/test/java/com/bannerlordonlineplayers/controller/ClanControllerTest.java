@@ -2,12 +2,14 @@ package com.bannerlordonlineplayers.controller;
 
 import com.bannerlordonlineplayers.UnitTestBase;
 import com.bannerlordonlineplayers.model.Clan;
+import com.bannerlordonlineplayers.repository.ClanRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.bannerlordonlineplayers.ClanTestData.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,6 +23,8 @@ class ClanControllerTest extends UnitTestBase {
 
     @Autowired
     private ClanController controller;
+    @Autowired
+    private ClanRepository repository;
 
     @BeforeEach
     void setUp() {
@@ -37,6 +41,12 @@ class ClanControllerTest extends UnitTestBase {
         assertEquals(clan1.getName(), actual.getName());
         assertEquals(clan1.getId(), actual.getId());
         assertEquals(clan1.getMembers().size(), actual.getMembers().size());
+    }
+
+    @Test
+    void findById() {
+        Optional<Clan> actual = repository.findById(1L);
+        assertEquals(clan1.getName(), actual.get().getName());
     }
 
     @Test
@@ -76,13 +86,17 @@ class ClanControllerTest extends UnitTestBase {
     @Test
     void update() {
         Clan before = controller.find("LS");
-        assertNotEquals(before.getName(), getUpdated().getName());
-        assertEquals(before.getMembers().size(), 1);
-        assertEquals(before.getWarList().size(), 2);
+        assertNotEquals(before.getName(), getUpdated().getName(), "before name update");
+        assertEquals(before.getMembers().size(), 1, "before members update");
+        assertEquals(before.getWarList().size(), 0, "before war update");
 
-        Clan after = controller.update(6L, getUpdated());
-        assertEquals(getUpdated().getName(), after.getName());
-        assertEquals(after.getMembers().size(), 0);
-        assertEquals(after.getWarList().size(), 0);
+        Clan updated = getUpdated();
+        updated.addWar(clan3);
+        updated.addWar(clan4);
+
+        Clan after = controller.update(5L, updated);
+        assertEquals(getUpdated().getName(), after.getName(), "after name update");
+        assertEquals(after.getMembers().size(), 0, "after members update");
+        assertEquals(after.getWarList().size(), 2, "after war update");
     }
 }

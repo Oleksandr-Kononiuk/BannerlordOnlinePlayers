@@ -31,6 +31,7 @@ public class Clan {
     private List<Player> members = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "war_id")
     private Clan inWar;
 
     @OneToMany(mappedBy = "inWar")
@@ -40,7 +41,7 @@ public class Clan {
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name="alliance_id")
 //    private Clan inAlliance;
-
+//
 //    @OneToMany(mappedBy = "inAlliance")
 //    @Setter(AccessLevel.PRIVATE)
 //    private Set<Clan> allianceList = new HashSet<>();
@@ -72,12 +73,16 @@ public class Clan {
     }
 
     public void addWar(Clan clan) {
-        this.getWarList().add(clan);
+        if (clan == null) return;
+
+        this.warList.add(clan);
         clan.getWarList().add(this);
     }
 
     public void removeWar(Clan clan) {
-        this.getWarList().remove(clan);
+        if (clan == null) return;
+
+        this.warList.remove(clan);
         clan.getWarList().remove(this);
     }
 
