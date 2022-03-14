@@ -7,13 +7,15 @@ DROP TABLE IF EXISTS `clans`;
 
 CREATE TABLE `clans`
 (
-    `id`          bigint       NOT NULL AUTO_INCREMENT,
-    `name`        varchar(255) NOT NULL,
-    `war_id`      bigint,
+    `id`          BIGINT       NOT NULL AUTO_INCREMENT,
+    `name`        VARCHAR(255) NOT NULL,
+    `war_id`      BIGINT,
+    `alliance_id` BIGINT,
 
     PRIMARY KEY (`id`),
     UNIQUE KEY `UK_clan_name` (`name`),
-    CONSTRAINT `FK_war_id` FOREIGN KEY (`war_id`) REFERENCES `clans` (`id`)
+    CONSTRAINT `FK_war_id` FOREIGN KEY (`war_id`) REFERENCES `clans` (`id`),
+    CONSTRAINT `FK_alliance_id` FOREIGN KEY (`alliance_id`) REFERENCES `clans` (`id`)
 
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
@@ -21,12 +23,12 @@ CREATE TABLE `clans`
 
 CREATE TABLE `players`
 (
-    `id`             bigint       NOT NULL,
-    `army`           int          NOT NULL DEFAULT '0',
-    `is_clan_leader` int                   DEFAULT '0',
-    `is_twink`       int                   DEFAULT '0',
-    `name`           varchar(255) NOT NULL,
-    `profile_link`   varchar(255) NOT NULL,
+    `id`             BIGINT       NOT NULL,
+    `army`           INT          NOT NULL DEFAULT '0',
+    `is_clan_leader` INT                   DEFAULT '0',
+    `is_twink`       INT                   DEFAULT '0',
+    `name`           VARCHAR(255) NOT NULL,
+    `profile_link`   VARCHAR(255) NOT NULL,
     `clan`           BIGINT                DEFAULT NULL,
 
     PRIMARY KEY (`id`),
@@ -38,7 +40,7 @@ CREATE TABLE `players`
 CREATE TABLE `name_history`
 (
     `id`           BIGINT NOT NULL,
-    `name_history` varchar(255) DEFAULT NULL,
+    `name_history` VARCHAR(255) DEFAULT NULL,
     CONSTRAINT `FK_name_history_players` FOREIGN KEY (`id`) REFERENCES `players` (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4

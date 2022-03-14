@@ -6,12 +6,12 @@ DELETE FROM users;
 
 INSERT INTO `clans`
 VALUES
-    (1,'DEV',   NULL),
-    (2,'HUN',   NULL),
-    (3,'FMC',   NULL),
-    (4,'GAL',   NULL),
-    (5,'LS',    NULL),
-    (6,'RS',    NULL);
+    (1,'DEV',   NULL, NULL),
+    (2,'HUN',   NULL, NULL),
+    (3,'FMC',   NULL, NULL),
+    (4,'GAL',   NULL, NULL),
+    (5,'LS',    NULL, NULL),
+    (6,'RS',    NULL, NULL);
 
 INSERT INTO `players`
 VALUES

@@ -12,19 +12,13 @@ import static com.bannerlordonlineplayers.PlayerTestData.*;
  * 10.02.2022
  */
 public class ClanTestData {
-//    public static Clan clan1 = new Clan(1L, "DEV", null, null, Set.of(), null, Set.of());
-//    public static Clan clan2 = new Clan(2L, "HUN", null, null, Set.of(), null, Set.of());
-//    public static Clan clan3 = new Clan(3L, "FMC", null, null, Set.of(), null, Set.of());
-//    public static Clan clan4 = new Clan(4L, "GAL", null, null, Set.of(), null, Set.of());
-//    public static Clan clan5 = new Clan(5L, "LS",  null, null, Set.of(), null, Set.of());//3, 4
-//    public static Clan clan6 = new Clan(6L, "RS",  null, null, Set.of(), null, Set.of());
 
-    public static Clan clan1 = new Clan(1L, "DEV", new ArrayList<>(), null, new HashSet<>());
-    public static Clan clan2 = new Clan(2L, "HUN", new ArrayList<>(), null, new HashSet<>());
-    public static Clan clan3 = new Clan(3L, "FMC", new ArrayList<>(), null, new HashSet<>());
-    public static Clan clan4 = new Clan(4L, "GAL", new ArrayList<>(), null, new HashSet<>());
-    public static Clan clan5 = new Clan(5L, "LS",  new ArrayList<>(), null, new HashSet<>());//3, 4
-    public static Clan clan6 = new Clan(6L, "RS",  new ArrayList<>(), null, new HashSet<>());
+    public static Clan clan1 = new Clan(1L, "DEV", new ArrayList<>(), null, new HashSet<>(), null, new HashSet<>());
+    public static Clan clan2 = new Clan(2L, "HUN", new ArrayList<>(), null, new HashSet<>(), null, new HashSet<>());
+    public static Clan clan3 = new Clan(3L, "FMC", new ArrayList<>(), null, new HashSet<>(), null, new HashSet<>());
+    public static Clan clan4 = new Clan(4L, "GAL", new ArrayList<>(), null, new HashSet<>(), null, new HashSet<>());
+    public static Clan clan5 = new Clan(5L, "LS",  new ArrayList<>(), null, new HashSet<>(), null, new HashSet<>());//3, 4
+    public static Clan clan6 = new Clan(6L, "RS",  new ArrayList<>(), null, new HashSet<>(), null, new HashSet<>());
 
     public static List<Clan> clans = List.of(clan1, clan2, clan3, clan4, clan5, clan6);
 
@@ -35,14 +29,14 @@ public class ClanTestData {
         clan5.addWar(clan3);
         clan5.addWar(clan4);
 
-//        clan6.addAlliance(clan1);
+        clan5.addAlliance(clan1);
     }
 
     public static Clan getNew() {
-        return new Clan(7L, "New",  Collections.emptyList(), null, new HashSet<>());
+        return new Clan(7L, "New",  Collections.emptyList(), null, new HashSet<>(), null, new HashSet<>());
     }
 
     public static Clan getUpdated() {
-        return new Clan(5L, "Updated", Collections.emptyList(), null, new HashSet<>());
+        return new Clan(5L, "Updated", Collections.emptyList(), null, new HashSet<>(), null, new HashSet<>());
     }
 }

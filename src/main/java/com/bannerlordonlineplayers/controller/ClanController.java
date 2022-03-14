@@ -69,6 +69,11 @@ public class ClanController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<Clan> getAll() {
+//        Clan ls = find("LS");
+//        Clan dev = find("DEV");
+//        dev.addAlliance(ls);
+//        update(dev.getId(), dev);
+
         return getAllByFilter(null, ClanOrder.NAME, 0, 10);
     }
 }

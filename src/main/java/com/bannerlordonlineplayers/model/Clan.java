@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.*;
 
 /**
- *@author  Oleksandr Kononiuk
+ * @author Oleksandr Kononiuk
  */
 
 @Entity
@@ -26,7 +26,7 @@ public class Clan {
     private String name;
 
     @OneToMany(mappedBy = "clan", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JsonIgnoreProperties(value={"clan", "name_history"})
+    @JsonIgnoreProperties(value = {"clan", "nameHistory", "army", "profile_link", })
     @Setter(AccessLevel.PRIVATE)
     private List<Player> members = new ArrayList<>();
 
@@ -38,13 +38,14 @@ public class Clan {
     @Setter(AccessLevel.PRIVATE)
     private Set<Clan> warList = new HashSet<>();
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name="alliance_id")
-//    private Clan inAlliance;
-//
-//    @OneToMany(mappedBy = "inAlliance")
-//    @Setter(AccessLevel.PRIVATE)
-//    private Set<Clan> allianceList = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "alliance_id")
+    private Clan inAlliance;
+
+    @OneToMany(mappedBy = "inAlliance")
+    @Setter(AccessLevel.PRIVATE)
+    @JsonIgnoreProperties(value = {"members", "allianceList", "warList", "inWar", "inAlliance"})
+    private Set<Clan> allianceList = new HashSet<>();
 
     public Clan(String name) {
         this.name = name;
@@ -86,15 +87,19 @@ public class Clan {
         clan.getWarList().remove(this);
     }
 
-//    public void addAlliance(Clan clan) {
-//        this.getAllianceList().add(clan);
-//        clan.getAllianceList().add(this);
-//    }
-//
-//    public void removeFromAlliance(Clan clan) {
-//        this.getAllianceList().remove(clan);
-//        clan.getAllianceList().remove(this);
-//    }
+    public void addAlliance(Clan clan) {
+        if (clan == null) return;
+
+        this.allianceList.add(clan);
+        clan.getAllianceList().add(this);
+    }
+
+    public void removeFromAlliance(Clan clan) {
+        if (clan == null) return;
+
+        this.allianceList.remove(clan);
+        clan.getAllianceList().remove(this);
+    }
 
     @Override
     public boolean equals(Object o) {
