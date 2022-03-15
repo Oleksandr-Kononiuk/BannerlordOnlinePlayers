@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.*;
 
 /**
@@ -23,6 +24,7 @@ public class Clan {
     private Long id;
 
     @Column(name = "name", unique = true, nullable = false)
+    @NotBlank
     private String name;
 
     @OneToMany(mappedBy = "clan", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})

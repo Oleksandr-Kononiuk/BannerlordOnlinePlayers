@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.*;
 
 /**
@@ -25,6 +26,7 @@ public class Player {
     private Long id;
 
     @Column(name = "name", nullable = false)
+    @NotBlank
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -42,6 +44,7 @@ public class Player {
     private boolean is_twink = false;
 
     @Column(name = "profile_link", nullable = false)
+    @NotBlank
     private String profile_link;
 
     @ElementCollection(fetch = FetchType.LAZY)

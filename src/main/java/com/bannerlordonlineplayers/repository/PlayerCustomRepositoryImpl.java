@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Set;
 
 /**
  *@author  Oleksandr Kononiuk
@@ -76,7 +77,9 @@ public class PlayerCustomRepositoryImpl implements PlayerCustomRepository {
     @Override
     @Transactional
     public Player update(Long id, Player player) {
-        if (player.getId() == null) {
+        player.addNameInHistory(player.getName());
+
+        if (player.getId() == null) {//save case
             player.setId(id);
             em.persist(player);
             return player;

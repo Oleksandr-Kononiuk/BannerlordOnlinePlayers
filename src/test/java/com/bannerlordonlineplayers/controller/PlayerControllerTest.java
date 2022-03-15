@@ -80,7 +80,7 @@ class PlayerControllerTest extends UnitTestBase {
         assertNotEquals(before.getName(), getUpdated().getName());
         assertNotEquals(before.getClan(), getUpdated().getClan());
         assertNotEquals(before.getArmy(), getUpdated().getArmy());
-        assertTrue(before.is_clan_leader());
+        assertFalse(before.is_clan_leader());
         assertFalse(before.is_twink());
 
         Player after = controller.update(1L, getUpdated());
@@ -89,5 +89,20 @@ class PlayerControllerTest extends UnitTestBase {
         assertEquals(getUpdated().getArmy(), after.getArmy());
         assertFalse(after.is_clan_leader());
         assertTrue(after.is_twink());
+    }
+
+    @Test
+    void updateNameHistory() {
+        Player before = controller.find("Storm");
+        assertEquals(before.getName(), player1.getName());
+        assertEquals(before.getId(), player1.getId());
+
+        before.setName("newStorm");
+
+        Player after = controller.update(1L, before);
+        assertEquals(after.getName(), before.getName());
+        assertEquals(after.getId(), before.getId());
+
+        assertTrue(after.getNameHistory().contains("newStorm"));
     }
 }
