@@ -2,6 +2,7 @@ package com.bannerlordonlineplayers.controller;
 
 import com.bannerlordonlineplayers.model.Clan;
 import com.bannerlordonlineplayers.repository.ClanRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import static com.bannerlordonlineplayers.util.Utils.getPagination;
 
+@Slf4j
 @RestController
 @RequestMapping("/clans")
 public class ClanController {
@@ -25,6 +27,7 @@ public class ClanController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public Clan save(@RequestParam String name) {
+        log.info("save new clan " + name);
         Clan neww = new Clan(name);
         return repository.save(neww);
     }
@@ -33,6 +36,7 @@ public class ClanController {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public Clan find(@PathVariable String name) {
+        log.info("find clan " + name);
         return repository.findByName(name);
     }
 
@@ -40,12 +44,14 @@ public class ClanController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public Clan update(@PathVariable Long id, @RequestBody Clan clan) {
+        log.info("update clan " + id);
         return repository.update(id, clan);
     }
 
     @DeleteMapping("/delete")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@RequestParam(name = "id") Long id) {
+        log.info("delete clan " + id);
         boolean a = repository.deleteOneById(id);
         System.out.println(a);
     }
@@ -59,13 +65,15 @@ public class ClanController {
                              @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
 
         if (name == null) {
+            log.info("get all");
             return repository.findAll(getPagination(order.getFieldName(), pageNumber, pageSize)).getContent();
         } else {
+            log.info("get all by name " + name);
             return repository.findAllByName(name, getPagination(order.getFieldName(), pageNumber, pageSize));
         }
     }
 
-    @GetMapping()
+    @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<Clan> getAll() {

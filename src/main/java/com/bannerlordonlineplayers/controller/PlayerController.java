@@ -3,6 +3,7 @@ package com.bannerlordonlineplayers.controller;
 import com.bannerlordonlineplayers.model.Player;
 import com.bannerlordonlineplayers.repository.PlayerRepository;
 import com.bannerlordonlineplayers.util.DataUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import static com.bannerlordonlineplayers.util.Utils.getPagination;
 
+@Slf4j
 @RestController
 @RequestMapping("/players")
 public class PlayerController {
@@ -27,6 +29,7 @@ public class PlayerController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Player save(@RequestParam String link) { //todo add save by id too
+        log.info("save new player by link " + link);
         Player player = dataUtils.getPlayerByLink(link);
         return repository.save(player);
     }
@@ -35,6 +38,7 @@ public class PlayerController {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public Player find(@PathVariable String name) {
+        log.info("find player by name " + name);
         return repository.findByName(name);
     }
 
@@ -42,12 +46,14 @@ public class PlayerController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public Player update(@PathVariable Long id, @RequestBody Player player) {
+        log.info("update player " + id);
         return repository.update(id, player);
     }
 
     @DeleteMapping("/delete")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@RequestParam(name = "id") Long id) {
+        log.info("delete player " + id);
         boolean d = repository.deleteOneById(id);
         System.out.println(d);
     }
@@ -61,13 +67,15 @@ public class PlayerController {
                                     @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
 
         if (name == null) {
+            log.info("find all");
             return repository.findAll(getPagination(order.getFieldName(), pageNumber, pageSize)).getContent();
         } else {
+            log.info("find all by name" + name);
             return repository.findAllByName(name, getPagination(order.getFieldName(), pageNumber, pageSize));
         }
     }
 
-    @GetMapping()
+    @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<Player> getAll() {
