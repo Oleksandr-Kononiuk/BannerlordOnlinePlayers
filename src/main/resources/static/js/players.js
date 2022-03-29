@@ -1,4 +1,4 @@
-const mealAjaxUrl = "profile/meals/";
+const mealAjaxUrl = "/players/";
 
 // https://stackoverflow.com/a/5064235/548473
 const ctx = {
@@ -6,7 +6,7 @@ const ctx = {
     updateTable: function () {
         $.ajax({
             type: "GET",
-            url: mealAjaxUrl + "filter",
+            url: mealAjaxUrl + "all",
             data: $("#filter").serialize()
         }).done(updateTableByData);
     }
@@ -38,13 +38,13 @@ $(function () {
     makeEditable({
         "columns": [
             {
-                "data": "dateTime"
+                "data": "name"
             },
             {
-                "data": "description"
+                "data": "army"
             },
             {
-                "data": "calories"
+                "data": "clan"
             },
             {
                 "render": renderEditBtn,
@@ -64,7 +64,7 @@ $(function () {
             ]
         ],
         "createdRow": function (row, data, dataIndex) {
-            $(row).attr("data-meal-excess", data.excess);
+            $(row).attr("data-players-excess", data.excess);
         }
     });
 

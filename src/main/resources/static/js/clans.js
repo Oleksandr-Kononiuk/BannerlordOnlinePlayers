@@ -1,12 +1,23 @@
-const userAjaxUrl = "admin/users/";
+const userAjaxUrl = "/clans/";
 
 // https://stackoverflow.com/a/5064235/548473
+// const ctx = {
+//     ajaxUrl: userAjaxUrl,
+//     updateTable: function () {
+//         $.get(userAjaxUrl, updateTableByData);
+//     }
+// }
+
 const ctx = {
-    ajaxUrl: userAjaxUrl,
+    ajaxUrl: mealAjaxUrl,
     updateTable: function () {
-        $.get(userAjaxUrl, updateTableByData);
+        $.ajax({
+            type: "GET",
+            url: mealAjaxUrl + "all",
+            data: $("#filter").serialize()
+        }).done(updateTableByData);
     }
-}
+};
 
 function enable(chkbox, id) {
     var enabled = chkbox.is(":checked");
@@ -16,7 +27,7 @@ function enable(chkbox, id) {
         type: "POST",
         data: "enabled=" + enabled
     }).done(function () {
-        chkbox.closest("tr").attr("data-user-enabled", enabled);
+        chkbox.closest("tr").attr("data-clans-enabled", enabled);
         successNoty(enabled ? "common.enabled" : "common.disabled");
     }).fail(function () {
         $(chkbox).prop("checked", !enabled);
@@ -31,34 +42,16 @@ $(function () {
                 "data": "name"
             },
             {
-                "data": "email",
-                "render": function (data, type, row) {
-                    if (type === "display") {
-                        return "<a href='mailto:" + data + "'>" + data + "</a>";
-                    }
-                    return data;
-                }
+                "data": "army"
             },
             {
-                "data": "roles"
+                "data": "members"
             },
             {
-                "data": "enabled",
-                "render": function (data, type, row) {
-                    if (type === "display") {
-                        return "<input type='checkbox' " + (data ? "checked" : "") + " onclick='enable($(this)," + row.id + ");'/>";
-                    }
-                    return data;
-                }
+                "data": "at-war"
             },
             {
-                "data": "registered",
-                "render": function (date, type, row) {
-                    if (type === "display") {
-                        return date.substring(0, 10);
-                    }
-                    return date;
-                }
+                "data": "at-alliance"
             },
             {
                 "orderable": false,
@@ -79,7 +72,7 @@ $(function () {
         ],
         "createdRow": function (row, data, dataIndex) {
             if (!data.enabled) {
-                $(row).attr("data-user-enabled", false);
+                $(row).attr("data-clans-enabled", false);
             }
         }
     });

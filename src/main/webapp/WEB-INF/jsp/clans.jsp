@@ -16,6 +16,8 @@
                         <th><spring:message code="clans.name"/></th>
                         <th><spring:message code="clans.army"/></th>
                         <th><spring:message code="clans.members"/></th>
+                        <th><spring:message code="clans.at.war"/></th>
+                        <th><spring:message code="clans.at.alliance"/></th>
                         <th></th>
                         <th></th>
                     </tr>
