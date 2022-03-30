@@ -1,7 +1,6 @@
 package com.bannerlordonlineplayers.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -16,7 +15,6 @@ import java.util.Locale;
  * 29.03.2022
  */
 @Configuration
-@ComponentScan(basePackages = "com.bannerlordonlineplayers.config")
 public class LocalConfig implements WebMvcConfigurer {
     @Bean
     public LocaleResolver localeResolver() {

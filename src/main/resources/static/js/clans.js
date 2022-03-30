@@ -54,14 +54,14 @@ $(function () {
                 "data": "at-alliance"
             },
             {
-                "orderable": false,
+                "render": renderEditBtn,
                 "defaultContent": "",
-                "render": renderEditBtn
+                "orderable": false
             },
             {
-                "orderable": false,
+                "render": renderDeleteBtn,
                 "defaultContent": "",
-                "render": renderDeleteBtn
+                "orderable": false
             }
         ],
         "order": [
