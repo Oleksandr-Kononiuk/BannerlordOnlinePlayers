@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%--<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>--%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
     <jsp:include page="fragments/headTag.jsp"/>
@@ -22,22 +22,14 @@
                         <th></th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td>DEV</td>
-                        <td>100</td>
-                        <td>members_link</td>
-                    </tr>
-                    <tr>
-                        <td>RS</td>
-                        <td>100</td>
-                        <td>members_link</td>
-                    </tr>
-                    </tbody>
                 </table>
             </div>
         </div>
 
         <jsp:include page="fragments/footer.jsp"/>
     </body>
+
+    <jsp:include page="fragments/i18n.jsp">
+        <jsp:param name="page" value="clans"/>
+    </jsp:include>
 </html>

@@ -5,6 +5,7 @@ import com.bannerlordonlineplayers.repository.ClanRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import static com.bannerlordonlineplayers.util.Utils.getPagination;
 
 @Slf4j
 @RestController
-@RequestMapping("/clans")
+@RequestMapping(value = "/clans", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ClanController {
 
     private final ClanRepository repository;
@@ -77,11 +78,6 @@ public class ClanController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<Clan> getAll() {
-//        Clan ls = find("LS");
-//        Clan dev = find("DEV");
-//        dev.addAlliance(ls);
-//        update(dev.getId(), dev);
-
         return getAllByFilter(null, ClanOrder.NAME, 0, 10);
     }
 }

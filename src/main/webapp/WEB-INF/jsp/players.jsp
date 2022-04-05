@@ -23,22 +23,14 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Clark</td>
-                        <td>Kent</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>John</td>
-                        <td>Carter</td>
-                    </tr>
-                    </tbody>
                 </table>
             </div>
         </div>
 
     <jsp:include page="fragments/footer.jsp"/>
     </body>
+
+    <jsp:include page="fragments/i18n.jsp">
+        <jsp:param name="page" value="players"/>
+    </jsp:include>
 </html>

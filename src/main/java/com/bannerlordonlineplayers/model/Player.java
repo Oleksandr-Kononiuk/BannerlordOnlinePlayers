@@ -32,6 +32,7 @@ public class Player {
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "clan")
     @JsonIgnoreProperties(value="members")
+//    @JsonBackReference
     private Clan clan;
 
     @Column(name = "army", nullable = false, columnDefinition = "int default 0")

@@ -18,7 +18,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
                 <li class="nav-item">
                     <form class="form-inline my-2 my-lg-2 ml-auto">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+                        <input class="form-control mr-sm-2" type="search" placeholder=<spring:message code="navbar.search"/> aria-label="Search" />
                         <button class="btn btn-outline-info my-1 mr-sm-2" type="submit"><spring:message code="navbar.search"/></button>
                     </form>
                 </li>
