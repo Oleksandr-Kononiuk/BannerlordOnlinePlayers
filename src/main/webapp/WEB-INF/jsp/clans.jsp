@@ -5,6 +5,8 @@
 <html>
     <jsp:include page="fragments/headTag.jsp"/>
     <body>
+        <script src="js/common.js" defer></script>
+        <script src="js/clans.js" defer></script>
         <jsp:include page="fragments/bodyHeader.jsp"/>
 
         <div class="jumbotron pt-5">

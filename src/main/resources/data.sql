@@ -15,7 +15,7 @@ VALUES
 
 INSERT INTO `players`
 VALUES
-    (1,0,0,0,'Storm','https://bannerlord-online.com/forum/index.php?members/storm.1/',1),
+    (1,11,0,0,'Storm','https://bannerlord-online.com/forum/index.php?members/storm.1/',1),
     (2,0,0,0,'Slender','https://bannerlord-online.com/forum/index.php?members/slender.2/',1),
     (3,10,0,0,'moonlight.exe','https://bannerlord-online.com/forum/index.php?members/moonlight-exe.3/',1),
     (4,0,0,0,'Вячеслав','https://bannerlord-online.com/forum/index.php?members/%D0%92%D1%8F%D1%87%D0%B5%D1%81%D0%BB%D0%B0%D0%B2.4/',NULL),

@@ -1,6 +1,7 @@
 package com.bannerlordonlineplayers.controller;
 
 import com.bannerlordonlineplayers.model.Clan;
+import com.bannerlordonlineplayers.model.Player;
 import com.bannerlordonlineplayers.repository.ClanRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,5 +80,17 @@ public class ClanController {
     @ResponseBody
     public List<Clan> getAll() {
         return getAllByFilter(null, ClanOrder.NAME, 0, 10);
+    }
+
+    @GetMapping("/ajax/{name}/army")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public Integer countClanArmy(@PathVariable String name) {
+        Clan clan = find(name);
+        Integer army = 0;
+        for(Player p : clan.getMembers()) {
+            army += p.getArmy();
+        }
+        return army;
     }
 }

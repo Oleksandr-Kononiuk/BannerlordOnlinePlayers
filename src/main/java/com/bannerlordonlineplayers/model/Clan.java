@@ -28,7 +28,7 @@ public class Clan {
     private String name;
 
     @OneToMany(mappedBy = "clan", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JsonIgnoreProperties(value = {"clan", "nameHistory", "army", "profile_link", })
+    @JsonIgnoreProperties(value = {"clan", "nameHistory", "profile_link"})
 //    @JsonManagedReference
     @Setter(AccessLevel.PRIVATE)
     private List<Player> members = new ArrayList<>();
