@@ -32,10 +32,26 @@ $(function () {
                 "data": null,
                 "render": function (data, type, row) {
                     if (data.clan === null) {
-                        return "-";
+                        return "";
                     }
                     var clanName = data.clan.name;
                     return '<a href="' + clanName + '">' + clanName + '</a>';
+                }
+            },
+            {
+                "data": null,
+                "render": function (data, type, row) {
+                   if (row.nameHistory.length === 0) {
+                       return "";
+                   } else {
+                       var names = '<details> <summary></summary>'
+                       //loop through all the row details (name history) to build output string
+                       for (var name in row.nameHistory) {
+                           var n = row.nameHistory[name];
+                           names = names + n + '<br>'
+                       }
+                       return names + '</details>';
+                   }
                 }
             },
             {

@@ -19,6 +19,7 @@
                             <th><spring:message code="players.name"/></th>
                             <th><spring:message code="players.army"/></th>
                             <th><spring:message code="players.clan"/></th>
+                            <th><spring:message code="players.name.history"/></th>
                             <th></th>
                             <th></th>
                         </tr>
