@@ -9,8 +9,21 @@ function makeEditable(datatableOpts) {
                     "url": ctx.ajaxUrl,
                     "dataSrc": ""
                 },
-                "paging": false,
-                "info": true
+                "paging": true,                 // Pagination
+                "info": true,                   // Shows 'Showing X of X' information
+                "pageLength": 10,               // Defaults number of rows to display in table
+                "pagingType": "full_numbers",   //first, prev, page number, next, last
+                "language": {
+                    "search": renderSearchIcon(),            // set search label on icon
+                    "searchPlaceholder": "",                // Placeholder for the search box
+                    "lengthMenu": "Show _MENU_ records per page", //
+                    "zeroRecords": "Nothing found!",
+                    "info": "Showing page _PAGE_ of _PAGES_",
+                    "infoEmpty": "No records available!",
+                    // "url": function () {
+                    //     return "datatable.locale." + localeResolver() + ".json"
+                    // },
+                },
             }
         ));
     form = $('#detailsForm');
@@ -102,6 +115,21 @@ function renderEditBtn(data, type, row) {
 function renderDeleteBtn(data, type, row) {
     if (type === "display") {
         return "<a onclick='deleteRow(" + row.id + ");'><span class='fa fa-remove'></span></a>";
+    }
+}
+
+function renderSearchIcon() {
+    return  '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">' +
+                '<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>' +
+            '</svg>'
+}
+
+function localeResolver(code) {
+    var language = window.navigator.userLanguage || window.navigator.language;
+    if (language === code) {
+        return language;
+    } else {
+        return code;
     }
 }
 
