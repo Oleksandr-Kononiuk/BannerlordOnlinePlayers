@@ -1,11 +1,10 @@
 const clansAjaxUrl = "clans/";
-const clansAjaxAll = "clans/all"
 
 // https://stackoverflow.com/a/5064235/548473
 const ctx = {
-    ajaxUrl: clansAjaxAll,
+    ajaxUrl: clansAjaxUrl,
     updateTable: function () {
-        $.get(clansAjaxAll, updateTableByData);
+        $.get(clansAjaxUrl.concat("all"), updateTableByData);
     }
 }
 

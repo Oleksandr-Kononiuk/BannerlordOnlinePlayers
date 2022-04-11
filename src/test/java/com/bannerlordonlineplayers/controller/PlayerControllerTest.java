@@ -83,7 +83,7 @@ class PlayerControllerTest extends UnitTestBase {
         assertFalse(before.is_clan_leader());
         assertFalse(before.is_twink());
 
-        Player after = controller.update(1L, getUpdated());
+        Player after = controller.update( getUpdated());
         assertEquals(getUpdated().getName(), after.getName());
         assertEquals(getUpdated().getClan(), after.getClan());
         assertEquals(getUpdated().getArmy(), after.getArmy());
@@ -99,7 +99,7 @@ class PlayerControllerTest extends UnitTestBase {
 
         before.setName("newStorm");
 
-        Player after = controller.update(1L, before);
+        Player after = controller.update(before);
         assertEquals(after.getName(), before.getName());
         assertEquals(after.getId(), before.getId());
 

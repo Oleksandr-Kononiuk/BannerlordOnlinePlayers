@@ -43,17 +43,17 @@ public class PlayerController {
         return repository.findByName(name);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/update")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Player update(@PathVariable Long id, @RequestBody Player player) {
-        log.info("update player " + id);
-        return repository.update(id, player);
+    public Player update(@RequestBody Player player) {
+        log.info("update player " + player.getId());
+        return repository.update(player.getId(), player);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@RequestParam(name = "id") Long id) {
+    public void delete(@PathVariable Long id) {
         log.info("delete player " + id);
         boolean d = repository.deleteOneById(id);
         System.out.println(d);

@@ -96,7 +96,7 @@ class ClanControllerTest extends UnitTestBase {
         updated.addWar(clan4);
         updated.addAlliance(clan1);
 
-        Clan after = controller.update(5L, updated);
+        Clan after = controller.update(updated);
         assertEquals(getUpdated().getName(), after.getName(), "after name update");
         assertEquals(after.getMembers().size(), 0, "after members update");
         assertEquals(after.getWarList().size(), 2, "after war update");

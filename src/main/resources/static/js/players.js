@@ -1,5 +1,4 @@
 const playerAjaxUrl = "players/";
-const playerAjaxAll = "players/all"
 
 // https://stackoverflow.com/a/5064235/548473
 // const ctx = {
@@ -13,9 +12,9 @@ const playerAjaxAll = "players/all"
 //     }
 // };
 const ctx = {
-    ajaxUrl: playerAjaxAll,
+    ajaxUrl: playerAjaxUrl,
     updateTable: function () {
-        $.get(playerAjaxAll, updateTableByData);
+        $.get(playerAjaxUrl.concat("all"), updateTableByData);
     }
 }
 

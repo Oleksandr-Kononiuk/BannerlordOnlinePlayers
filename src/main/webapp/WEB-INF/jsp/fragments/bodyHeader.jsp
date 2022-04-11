@@ -24,12 +24,12 @@
                 </li>
                 <li class="nav-item">
                     <div class="btn-group" role="group" aria-label="Language group">
-                        <button class="btn btn-outline-dark" type="button" onclick=localeResolver("en")>
+                        <button class="btn btn-outline-dark" type="button" onclick=selectedLanguage("en")>
                             <a href="${requestScope['javax.servlet.forward.request_uri']}?lang=en">
                                 <img src="images/flag-EN.png" width="32" height="19" alt="EN">
                             </a>
                         </button>
-                        <button class="btn btn-outline-dark" type="button" onclick=localeResolver("ua")>
+                        <button class="btn btn-outline-dark" type="button" onclick=selectedLanguage("uk")>
                             <a href="${requestScope['javax.servlet.forward.request_uri']}?lang=ua">
                                 <img src="images/flag-UA.png" width="32" height="19" alt="UA">
                             </a>

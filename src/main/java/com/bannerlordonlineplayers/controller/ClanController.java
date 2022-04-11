@@ -42,17 +42,17 @@ public class ClanController {
         return repository.findByName(name);
     }
 
-    @PostMapping("/clans/{id}")
+    @PostMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public Clan update(@PathVariable Long id, @RequestBody Clan clan) {
-        log.info("update clan " + id);
-        return repository.update(id, clan);
+    public Clan update(@RequestBody Clan clan) {
+        log.info("update clan " + clan.getId());
+        return repository.update(clan.getId(), clan);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@RequestParam(name = "id") Long id) {
+    public void delete(@PathVariable Long id) {
         log.info("delete clan " + id);
         boolean a = repository.deleteOneById(id);
         System.out.println(a);
@@ -80,17 +80,5 @@ public class ClanController {
     @ResponseBody
     public List<Clan> getAll() {
         return getAllByFilter(null, ClanOrder.NAME, 0, 10);
-    }
-
-    @GetMapping("/ajax/{name}/army")
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    public Integer countClanArmy(@PathVariable String name) {
-        Clan clan = find(name);
-        Integer army = 0;
-        for(Player p : clan.getMembers()) {
-            army += p.getArmy();
-        }
-        return army;
     }
 }

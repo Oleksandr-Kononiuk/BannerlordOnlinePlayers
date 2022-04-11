@@ -6,7 +6,7 @@ function makeEditable(datatableOpts) {
         $.extend(true, datatableOpts,
             {
                 "ajax": {
-                    "url": ctx.ajaxUrl,
+                    "url": ctx.ajaxUrl.concat("all"),
                     "dataSrc": ""
                 },
                 "paging": true,                 // Pagination
@@ -16,13 +16,11 @@ function makeEditable(datatableOpts) {
                 "language": {
                     "search": renderSearchIcon(),            // set search label on icon
                     "searchPlaceholder": "",                // Placeholder for the search box
-                    "lengthMenu": "Show _MENU_ records per page", //
+                    "lengthMenu": "Show _MENU_ records per page",
                     "zeroRecords": "Nothing found!",
                     "info": "Showing page _PAGE_ of _PAGES_",
                     "infoEmpty": "No records available!",
-                    // "url": function () {
-                    //     return "datatable.locale." + localeResolver() + ".json"
-                    // },
+                    //  "url": localeResolver()
                 },
             }
         ));
@@ -51,7 +49,7 @@ function add() {
 function updateRow(id) {
     form.find(":input").val("");
     $("#modalTitle").html(i18n["editTitle"]);
-    $.get(ctx.ajaxUrl + id, function (data) {
+    $.get(ctx.ajaxUrl.concat("update/") + id, function (data) {
         $.each(data, function (key, value) {
             form.find("input[name='" + key + "']").val(value);
         });
@@ -124,12 +122,25 @@ function renderSearchIcon() {
             '</svg>'
 }
 
-function localeResolver(code) {
-    var language = window.navigator.userLanguage || window.navigator.language;
-    if (language === code) {
-        return language;
+function localeResolver() {
+    if (language === "uk") {
+        return "http://cdn.datatables.net/plug-ins/1.11.5/i18n/uk.json";
     } else {
-        return code;
+        return "http://cdn.datatables.net/plug-ins/1.11.5/i18n/en-GB.json";
+    }
+}
+var language = "en";
+
+function selectedLanguage(code) {
+    language = code;
+    console.log(language);
+}
+
+function lengthMenu() {
+    if (language === "en") {
+        return "Show _MENU_ records per page";
+    } else {
+        return "Показати _MENU_ записів на сторінці"
     }
 }
 
