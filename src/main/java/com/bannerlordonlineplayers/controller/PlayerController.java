@@ -35,12 +35,20 @@ public class PlayerController {
         return repository.save(player);
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("name/{name}")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public Player find(@PathVariable String name) {
         log.info("find player by name " + name);
         return repository.findByName(name);
+    }
+
+    @GetMapping("/{id}")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public Player find(@PathVariable Long id) {
+        log.info("find player by id " + id);
+        return repository.findById(id).get();
     }
 
     @PostMapping("/update")
