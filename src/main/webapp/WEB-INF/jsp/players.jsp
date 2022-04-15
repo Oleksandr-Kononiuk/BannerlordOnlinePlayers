@@ -45,11 +45,11 @@
                                        placeholder="<spring:message code="players.name"/>">
                             </div>
 
-                            <div class="form-group">
-                                <label for="clan" class="col-form-label"><spring:message code="players.clan"/></label>
-                                <input type="text" class="form-control" id="clan" name="clan"
-                                       placeholder="<spring:message code="players.clan"/>">
-                            </div>
+<%--                            <div class="form-group">--%>
+<%--                                <label for="clan" class="col-form-label"><spring:message code="players.clan"/></label>--%>
+<%--                                <input type="text" class="form-control" id="clan" name="clan"--%>
+<%--                                       placeholder="<spring:message code="players.clan"/>">--%>
+<%--                            </div>--%>
 
                             <div class="form-group">
                                 <label for="army" class="col-form-label"><spring:message code="players.army"/></label>

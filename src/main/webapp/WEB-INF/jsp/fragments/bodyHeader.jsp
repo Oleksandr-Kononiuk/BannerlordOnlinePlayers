@@ -14,6 +14,7 @@
         <a class="btn btn-outline-primary mr-sm-2" href="${pageContext.request.contextPath}/players">
             <spring:message code="navbar.players"/>
         </a>
+<%--        todo пофіксити вигляд для мобіл--%>
         <div class="collapse navbar-collapse justify-content-end" id="navbarColor01">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
                 <li class="nav-item active">

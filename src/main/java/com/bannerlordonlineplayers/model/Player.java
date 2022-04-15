@@ -1,10 +1,12 @@
 package com.bannerlordonlineplayers.model;
 
+import com.bannerlordonlineplayers.util.validation.HasId;
 import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.*;
 
 /**
@@ -20,7 +22,7 @@ import java.util.*;
 //@JsonIdentityInfo(
 //        generator = ObjectIdGenerators.PropertyGenerator.class,
 //        property = "id")
-public class Player {
+public class Player implements HasId {
 
     @Id
     private Long id;
@@ -36,6 +38,7 @@ public class Player {
     private Clan clan;
 
     @Column(name = "army", nullable = false, columnDefinition = "int default 0")
+    @Size(max = 150)
     private Integer army = 0;
 
     @Column(name = "is_clan_leader", columnDefinition = "int default false")

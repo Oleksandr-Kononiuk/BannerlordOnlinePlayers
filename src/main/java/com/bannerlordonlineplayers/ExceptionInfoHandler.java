@@ -2,8 +2,6 @@ package com.bannerlordonlineplayers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -18,6 +16,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import com.bannerlordonlineplayers.util.exception.*;
 import com.bannerlordonlineplayers.util.validation.ValidationUtil;
 
+import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
@@ -37,12 +36,18 @@ public class ExceptionInfoHandler {
 
     private final MessageSourceAccessor messageSourceAccessor;
 
-    public ExceptionInfoHandler(MessageSource messageSource) {
-        this.messageSourceAccessor = new MessageSourceAccessor(messageSource, LocaleContextHolder.getLocale());;
+    public ExceptionInfoHandler(MessageSourceAccessor messageSourceAccessor) {
+        this.messageSourceAccessor = messageSourceAccessor;
+        System.out.println(messageSourceAccessor.getClass().getName());
     }
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorInfo> handleError(HttpServletRequest req, NotFoundException e) {
+        return logAndGetErrorInfo(req, e, false, DATA_NOT_FOUND);
+    }
+
+    @ExceptionHandler(NoResultException.class)
+    public ResponseEntity<ErrorInfo> handleErrorr(HttpServletRequest req, NoResultException e) {
         return logAndGetErrorInfo(req, e, false, DATA_NOT_FOUND);
     }
 

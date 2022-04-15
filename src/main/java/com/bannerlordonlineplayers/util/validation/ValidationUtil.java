@@ -10,6 +10,7 @@ import org.springframework.lang.NonNull;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.*;
+import java.util.Objects;
 import java.util.Set;
 
 public class ValidationUtil {
@@ -60,11 +61,11 @@ public class ValidationUtil {
         }
     }
 
-    public static void assureIdConsistent(HasId bean, int id) {
+    public static void assureIdConsistent(HasId bean, Long id) {
 //      conservative when you reply, but accept liberally (http://stackoverflow.com/a/32728226/548473)
         if (bean.isNew()) {
             bean.setId(id);
-        } else if (bean.id() != id) {
+        } else if (!Objects.equals(bean.id(), id)) {
             throw new IllegalRequestDataException(bean + " must be with id=" + id);
         }
     }

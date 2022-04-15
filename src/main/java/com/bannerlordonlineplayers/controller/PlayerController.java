@@ -3,6 +3,7 @@ package com.bannerlordonlineplayers.controller;
 import com.bannerlordonlineplayers.model.Player;
 import com.bannerlordonlineplayers.repository.PlayerRepository;
 import com.bannerlordonlineplayers.util.DataUtils;
+import com.bannerlordonlineplayers.util.exception.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,10 +49,12 @@ public class PlayerController {
     @ResponseStatus(HttpStatus.OK)
     public Player find(@PathVariable Long id) {
         log.info("find player by id " + id);
-        return repository.findById(id).get();
+        return repository.findById(id).orElseThrow(
+                () -> new NotFoundException("Player not found " + id)
+        );
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public Player update(@RequestBody Player player) {

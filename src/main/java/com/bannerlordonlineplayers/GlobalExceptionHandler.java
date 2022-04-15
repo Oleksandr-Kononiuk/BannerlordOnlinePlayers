@@ -5,19 +5,13 @@ import com.bannerlordonlineplayers.util.exception.ErrorType;
 import com.bannerlordonlineplayers.util.validation.ValidationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Locale;
 import java.util.Map;
 
 @ControllerAdvice
@@ -26,10 +20,8 @@ public class GlobalExceptionHandler {
 
     private final MessageSourceAccessor messageSourceAccessor;
 
-    public GlobalExceptionHandler(MessageSource messageSource) {
-        this.messageSourceAccessor = new MessageSourceAccessor(messageSource, Locale.ENGLISH);
-        System.out.println(messageSource.getClass().getName());
-        System.out.println(Locale.ENGLISH);
+    public GlobalExceptionHandler(MessageSourceAccessor messageSourceAccessor) {
+        this.messageSourceAccessor = messageSourceAccessor;
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)

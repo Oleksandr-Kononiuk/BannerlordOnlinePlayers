@@ -1,5 +1,6 @@
 package com.bannerlordonlineplayers.model;
 
+import com.bannerlordonlineplayers.util.validation.HasId;
 import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
@@ -17,7 +18,7 @@ import java.util.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Clan {
+public class Clan implements HasId {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
